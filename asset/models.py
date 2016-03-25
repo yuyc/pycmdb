@@ -2,7 +2,9 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from minister.coreauth import UserProfile
+from minister import coreauth
+
+
 
 # Create your models here.
 class Asset(models.Model):
@@ -28,7 +30,7 @@ class Asset(models.Model):
     price = models.FloatField(u'价格',null=True, blank=True)
     business_unit = models.ForeignKey('BusinessUnit', verbose_name=u'所属业务线',null=True, blank=True)
     tags = models.ManyToManyField('Tag' ,blank=True)
-    admin = models.ForeignKey('UserProfile', verbose_name=u'资产管理员',null=True, blank=True)
+    admin = models.ForeignKey(coreauth.UserProfile, verbose_name=u'资产管理员',null=True, blank=True)
     idc = models.ForeignKey('IDC', verbose_name=u'IDC机房',null=True, blank=True)
     memo = models.TextField(u'备注', null=True, blank=True)
     create_date = models.DateTimeField(blank=True, auto_now_add=True)
@@ -250,7 +252,7 @@ class IDC(models.Model):
 
 class Tag(models.Model):
     name = models.CharField('Tag name',max_length=32,unique=True )
-    creater = models.ForeignKey('UserProfile')
+    creater = models.ForeignKey(coreauth.UserProfile)
     create_date = models.DateField(auto_now_add=True)
     def __unicode__(self):
         return self.name
@@ -271,7 +273,7 @@ class EventLog(models.Model):
     component = models.CharField('事件子项',max_length=255, blank=True,null=True)
     detail = models.TextField(u'事件详情')
     date = models.DateTimeField(u'事件时间',auto_now_add=True)
-    user = models.ForeignKey('UserProfile',verbose_name=u'事件源')
+    user = models.ForeignKey(coreauth.UserProfile,verbose_name=u'事件源')
     memo = models.TextField(u'备注', blank=True,null=True)
 
     def __unicode__(self):
@@ -319,7 +321,7 @@ class NewAssetApprovalZone(models.Model):
     data = models.TextField(u'资产数据')
     date = models.DateTimeField(u'汇报日期',auto_now_add=True)
     approved = models.BooleanField(u'已批准',default=False)
-    approved_by = models.ForeignKey('UserProfile',verbose_name=u'批准人',blank=True,null=True)
+    approved_by = models.ForeignKey(coreauth.UserProfile,verbose_name=u'批准人',blank=True,null=True)
     approved_date = models.DateTimeField(u'批准日期',blank=True,null=True)
 
     def __unicode__(self):
