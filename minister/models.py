@@ -4,3 +4,4 @@ from django.db import models
 from minister import coreauth
 
 # Create your models here.
+
