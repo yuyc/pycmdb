@@ -1,21 +1,14 @@
-from django.conf.urls import url, include
-from minister.coreauth import UserProfile
-from rest_framework import routers, serializers, viewsets
+from django.conf.urls import url, include, patterns
+from rest_framework import routers
+from asset import views
 
 # Serializers define the API representation.
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = UserProfile
-        fields = ('url', 'username', 'email')
-
-# ViewSets define the view behavior.
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = UserProfile.objects.all()
-    serializer_class = UserSerializer
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
+router.register(r'users', views.UserViewSet)
+router.register(r'Asset', views.AssetViewSet)
+
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
