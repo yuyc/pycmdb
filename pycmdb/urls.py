@@ -16,9 +16,11 @@ Including another URLconf
 from django.conf.urls import include,url
 from django.contrib import admin
 from asset import url as asset_url
+from asset import rest_url as rest_url
 
 urlpatterns = [
-    url(r'^api/',include(asset_url)),
+    url(r'^api/', include(rest_url)),
+    url(r'^asset/', include(asset_url)),
     url(r'^admin/', admin.site.urls),
 ]
 
