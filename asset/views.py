@@ -1,16 +1,12 @@
-from django.shortcuts import render
-from rest_framework import viewsets
-from minister.coreauth import UserProfile
-from asset.serializers import UserSerializer,AssetSerializer
-from models import Asset
-# Create your views here.
+from django.shortcuts import render,HttpResponse
+import json
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = UserProfile.objects.all()
-    serializer_class = UserSerializer
+import core
 
-class AssetViewSet(viewsets.ModelViewSet):
-    queryset = Asset.objects.all()
-    serializer_class = AssetSerializer
+def AssetWithNoAssetId(request):
+    if request.method == 'POST':
+        ass_handler = core.Asset(request)
+        res = ass_handler.get_asset_id_by_sn()
+        return  HttpResponse(json.dumps(res))
 
 
