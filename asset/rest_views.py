@@ -1,3 +1,5 @@
+#rest API's views
+
 from django.shortcuts import render
 from rest_framework import viewsets
 from minister.coreauth import UserProfile
